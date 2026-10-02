@@ -3,6 +3,8 @@
 A VGA font editor written in C with the Windows API. Create new VGA/EGA text-mode
 fonts or edit existing ones: 256 glyphs, 8 pixels wide, 1–32 pixels tall.
 
+Claude Code was used.
+
 ## Features
 
 - Zoomed glyph editor with grid and per-row hex values
@@ -108,6 +110,6 @@ res/             resources: menu, accelerators, dialogs, icon, manifest
 tests/           unit tests for the portable core
 ```
 
-## License
+## Copyright and License
 
 MIT — see [LICENSE](LICENSE).
