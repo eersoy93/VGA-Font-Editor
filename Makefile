@@ -11,7 +11,7 @@ HOSTCC  ?= cc
 
 CFLAGS  ?= -O2
 CFLAGS  += -std=c99 -Wall -Wextra -Isrc -Ires \
-           -DUNICODE -D_UNICODE -D_WIN32_WINNT=0x0601 -DWINVER=0x0601
+           -DUNICODE -D_UNICODE -D_WIN32_WINNT=0x0501 -DWINVER=0x0501
 LDFLAGS += -mwindows -static
 LDLIBS  := -lcomctl32 -lcomdlg32 -lshell32 -lgdi32 -luser32 -lkernel32
 
