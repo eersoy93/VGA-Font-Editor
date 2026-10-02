@@ -1,0 +1,148 @@
+#include <windows.h>
+#include <commctrl.h>
+#include "resource.h"
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+IDI_APP ICON "app.ico"
+
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "app.manifest"
+
+IDR_MAINMENU MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New...\tCtrl+N",                 IDM_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",                IDM_FILE_OPEN
+        MENUITEM "&Save\tCtrl+S",                   IDM_FILE_SAVE
+        MENUITEM "Save &As...\tCtrl+Shift+S",       IDM_FILE_SAVEAS
+        MENUITEM SEPARATOR
+        MENUITEM "&Export as C Source...",          IDM_FILE_EXPORT_C
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                           IDM_FILE_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",                   IDM_EDIT_UNDO
+        MENUITEM "&Redo\tCtrl+Y",                   IDM_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t Glyph\tCtrl+X",              IDM_EDIT_CUT
+        MENUITEM "&Copy Glyph\tCtrl+C",             IDM_EDIT_COPY
+        MENUITEM "&Paste Glyph\tCtrl+V",            IDM_EDIT_PASTE
+        MENUITEM "C&lear Glyph\tDel",               IDM_EDIT_CLEAR
+    END
+    POPUP "&Glyph"
+    BEGIN
+        MENUITEM "&Invert\tCtrl+I",                 IDM_GLYPH_INVERT
+        MENUITEM "Flip &Horizontal\tCtrl+Shift+H",  IDM_GLYPH_FLIP_H
+        MENUITEM "Flip &Vertical\tCtrl+Shift+V",    IDM_GLYPH_FLIP_V
+        MENUITEM SEPARATOR
+        MENUITEM "Shift &Up\tCtrl+Up",              IDM_GLYPH_SHIFT_UP
+        MENUITEM "Shift &Down\tCtrl+Down",          IDM_GLYPH_SHIFT_DOWN
+        MENUITEM "Shift &Left\tCtrl+Left",          IDM_GLYPH_SHIFT_LEFT
+        MENUITEM "Shift &Right\tCtrl+Right",        IDM_GLYPH_SHIFT_RIGHT
+        MENUITEM SEPARATOR
+        MENUITEM "&Bold\tCtrl+B",                   IDM_GLYPH_BOLD
+        MENUITEM SEPARATOR
+        MENUITEM "&Previous Glyph\tPgUp",           IDM_GLYPH_PREV
+        MENUITEM "&Next Glyph\tPgDn",               IDM_GLYPH_NEXT
+    END
+    POPUP "F&ont"
+    BEGIN
+        MENUITEM "Change Glyph &Height...",         IDM_FONT_HEIGHT
+        MENUITEM "&Render from Windows Font...",    IDM_FONT_RENDER
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "Show &Grid\tCtrl+G",              IDM_VIEW_GRID
+        MENUITEM "&9-Dot Character Cells",          IDM_VIEW_NINEDOT
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About VGA Font Editor",          IDM_HELP_ABOUT
+    END
+END
+
+IDR_ACCEL ACCELERATORS
+BEGIN
+    "N",       IDM_FILE_NEW,          VIRTKEY, CONTROL
+    "O",       IDM_FILE_OPEN,         VIRTKEY, CONTROL
+    "S",       IDM_FILE_SAVE,         VIRTKEY, CONTROL
+    "S",       IDM_FILE_SAVEAS,       VIRTKEY, CONTROL, SHIFT
+    "Z",       IDM_EDIT_UNDO,         VIRTKEY, CONTROL
+    "Y",       IDM_EDIT_REDO,         VIRTKEY, CONTROL
+    "Z",       IDM_EDIT_REDO,         VIRTKEY, CONTROL, SHIFT
+    "X",       IDM_EDIT_CUT,          VIRTKEY, CONTROL
+    "C",       IDM_EDIT_COPY,         VIRTKEY, CONTROL
+    "V",       IDM_EDIT_PASTE,        VIRTKEY, CONTROL
+    VK_DELETE, IDM_EDIT_CLEAR,        VIRTKEY
+    "I",       IDM_GLYPH_INVERT,      VIRTKEY, CONTROL
+    "H",       IDM_GLYPH_FLIP_H,      VIRTKEY, CONTROL, SHIFT
+    "V",       IDM_GLYPH_FLIP_V,      VIRTKEY, CONTROL, SHIFT
+    VK_UP,     IDM_GLYPH_SHIFT_UP,    VIRTKEY, CONTROL
+    VK_DOWN,   IDM_GLYPH_SHIFT_DOWN,  VIRTKEY, CONTROL
+    VK_LEFT,   IDM_GLYPH_SHIFT_LEFT,  VIRTKEY, CONTROL
+    VK_RIGHT,  IDM_GLYPH_SHIFT_RIGHT, VIRTKEY, CONTROL
+    "B",       IDM_GLYPH_BOLD,        VIRTKEY, CONTROL
+    VK_PRIOR,  IDM_GLYPH_PREV,        VIRTKEY
+    VK_NEXT,   IDM_GLYPH_NEXT,        VIRTKEY
+    "G",       IDM_VIEW_GRID,         VIRTKEY, CONTROL
+END
+
+IDD_NEWFONT DIALOGEX 0, 0, 186, 70
+STYLE DS_SHELLFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "New Font"
+FONT 8, "MS Shell Dlg 2"
+BEGIN
+    LTEXT           "Glyph &height (1-32 pixels):", IDC_STATIC, 7, 10, 100, 8
+    EDITTEXT        IDC_HEIGHT, 112, 7, 40, 14, ES_NUMBER
+    CONTROL         "", IDC_HEIGHT_SPIN, "msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,
+                    0, 0, 0, 0
+    LTEXT           "Glyphs are 8 pixels wide. Common heights: 8, 14, 16.", IDC_STATIC, 7, 28, 172, 8
+    DEFPUSHBUTTON   "OK", IDOK, 75, 49, 50, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 129, 49, 50, 14
+END
+
+IDD_RESIZE DIALOGEX 0, 0, 220, 92
+STYLE DS_SHELLFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Change Glyph Height"
+FONT 8, "MS Shell Dlg 2"
+BEGIN
+    LTEXT           "Current height:", IDC_STATIC, 7, 9, 60, 8
+    LTEXT           "", IDC_CUR_HEIGHT, 70, 9, 40, 8
+    LTEXT           "New &height (1-32):", IDC_STATIC, 7, 26, 60, 8
+    EDITTEXT        IDC_HEIGHT, 70, 23, 40, 14, ES_NUMBER
+    CONTROL         "", IDC_HEIGHT_SPIN, "msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,
+                    0, 0, 0, 0
+    LTEXT           "&Method:", IDC_STATIC, 7, 46, 60, 8
+    COMBOBOX        IDC_MODE, 70, 43, 143, 80, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK", IDOK, 109, 71, 50, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 163, 71, 50, 14
+END
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     1, 0, 0, 0
+PRODUCTVERSION  1, 0, 0, 0
+FILEOS          VOS_NT_WINDOWS32
+FILETYPE        VFT_APP
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "VGA Font Editor"
+            VALUE "FileVersion", "1.0.0"
+            VALUE "InternalName", "vgafontedit"
+            VALUE "LegalCopyright", "Copyright (c) 2026 Erdem Ersoy. MIT License."
+            VALUE "OriginalFilename", "vgafontedit.exe"
+            VALUE "ProductName", "VGA Font Editor"
+            VALUE "ProductVersion", "1.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
