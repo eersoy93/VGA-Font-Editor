@@ -135,7 +135,7 @@ BEGIN
             VALUE "FileDescription", "VGA Font Editor"
             VALUE "FileVersion", "1.0.0"
             VALUE "InternalName", "vgafontedit"
-            VALUE "LegalCopyright", "Copyright (c) 2026 Erdem Ersoy. MIT License."
+            VALUE "LegalCopyright", "Copyright (c) 2026 Erdem Ersoy (eersoy93). MIT License."
             VALUE "OriginalFilename", "vgafontedit.exe"
             VALUE "ProductName", "VGA Font Editor"
             VALUE "ProductVersion", "1.0.0"
