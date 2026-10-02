@@ -27,10 +27,21 @@ fonts or edit existing ones: 256 glyphs, 8 pixels wide, 1–32 pixels tall.
 
 ## Building
 
-**MSYS2 / MinGW-w64** (Windows):
+Runs on Windows XP and later. The result is a single `vgafontedit.exe` with no
+extra DLLs; build it 32-bit for 32-bit Windows.
+
+**MSYS2 / MinGW-w64** (Windows) — use the MINGW32 or MINGW64 shell. UCRT64 and
+CLANG64 builds need the Universal CRT, which Windows XP lacks.
 
 ```sh
 make
+```
+
+**Cross compile from Linux:**
+
+```sh
+make CROSS=i686-w64-mingw32-     # 32-bit
+make CROSS=x86_64-w64-mingw32-   # 64-bit
 ```
 
 **Visual Studio** (CMake):
@@ -40,13 +51,13 @@ cmake -S . -B build
 cmake --build build --config Release
 ```
 
-**Cross compile from Linux:**
+Visual Studio 2019/2022 builds need Windows 7 or later because their runtime no
+longer supports XP. For an XP build with Visual Studio, use VS 2017 with the
+`v141_xp` toolset:
 
 ```sh
-make CROSS=x86_64-w64-mingw32-
+cmake -S . -B build -G "Visual Studio 15 2017" -A Win32 -T v141_xp
 ```
-
-The result is a single `vgafontedit.exe` with no extra DLLs. Windows 7 or later.
 
 Unit tests for the font core (formats, transforms, undo) run on any platform:
 
