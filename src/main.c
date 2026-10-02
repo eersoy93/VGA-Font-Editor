@@ -745,7 +745,7 @@ static void cmd_about(void)
         L"Mouse: left button toggles and draws pixels, right button erases.\n"
         L"Keyboard: arrow keys select glyphs, PgUp/PgDn previous/next,\n"
         L"type any character to jump to its glyph.\n\n"
-        L"Copyright (c) 2026 Erdem Ersoy. MIT License.",
+        L"Copyright (c) 2026 Erdem Ersoy (eersoy93). MIT License.",
         L"About " APP_NAME, MB_OK | MB_ICONINFORMATION);
 }
 
